@@ -1,0 +1,99 @@
+[
+
+	{
+	"1": "What scandal forced U.S. President Richard Nixon to resign in 1974?",
+	"2": "The Cuban Revolution led to the rise of what dictator?",
+	"3": "Along with Hiroshima, which Japanese city was hit by an atomic bomb?",
+	"4": "Who was the first female prime minister of Britain?",
+	"5": "Who assasinated Abraham Lincoln?",
+	"6": "Which Continent was devestated by the Black Death in the 1300s?",
+	"7": "What acquisition of territory by the United states from france happened in 1803?",
+	"8": "Where were the first modern Olympics held in 1896?",
+	"9": "Who created the first successful printing press?",
+	"10": "What military leader, who later became an emperor, rose to power during the French Revolution?",
+	"11": "On what date was Julius Caesar assasinated in Rome?"
+	}
+	,
+	{
+		"1": {
+			"a": "Watergate",
+			"b": "Whitewater",
+			"c": "Iran Contra",
+			"d": "Lewinksy Scandal"
+		},
+		"2": {
+			"a": "Rafael Trujillo",
+			"b": "Che Guevara",
+			"c": "Fidel Castro",
+			"d": "Augusto Pinochet"
+		},
+		"3": {
+			"a": "Tokyo",
+			"b": "Nagasaki",
+			"c": "Osaka",
+			"d": "Nagoya"
+		},
+		"4": {
+			"a": "Florence Nightingale",
+			"b": "Margaret Thatcher",
+			"c": "Queen Elizabeth",
+			"d": "Jane Austen"
+		},
+		"5": {
+			"a": "Lee Harvey Oswald",
+			"b": "John Wilkes Booth",
+			"c": "James Earl Ray",
+			"d": "Leon Czoglsoz"
+		},
+		"6": {
+			"a": "North America",
+			"b": "South America",
+			"c": "Europe",
+			"d": "Asia"
+		},
+		"7": {
+			"a": "Louisiana Purchase",
+			"b": "Alaskan Purchase",
+			"c": "the annexation of texas",
+			"d": "None of the above"
+		},
+		"8": {
+			"a": "France",
+			"b": "Germany",
+			"c": "Greece",
+			"d": "Italy"
+		},
+		"9": {
+			"a": "Johannes Gutenberg",
+			"b": "Nikola Tesla",
+			"c": "Henry Ford",
+			"d": "Benjamin Franklin"
+		},
+		"10": {
+			"a": "Louis XVI",
+			"b": "Marquis de Lafayette",
+			"c": "Napoleaon Bonaparte",
+			"d": "Maximilien de Robespierre"
+		},
+		"11": {
+			"a": "April 15th",
+			"b": "March 15th",
+			"c": "May 15th",
+			"d": "February 15th"
+		}
+	},
+	{
+		"1": "Watergate",
+		"2": "Fidel Castro",
+		"3": "Nagasaki",
+		"4": "Maragaret Thatcher",
+		"5": "John Wilkes Booth",
+		"6": "Europe",
+		"7": "Louisiana Purchase",
+		"8": "Greece",
+		"9": "Johannes Gutenberg",
+		"10": "Napoleaon Bonaparte",
+		"11": "March 15th"
+
+	}
+]

@@ -1,0 +1,99 @@
+[
+
+	{
+	"1": "Who won the 2016 best actor oscar?",
+	"2": "In which city were the 2016 olympics held?",
+	"3": "What was Michael Jackson known as?",
+	"4": "Who said float like a butterfly, sting like a bee?",
+	"5": "A group of what birds is known as murder?",
+	"6": "Which actor plays the role of Captain Jack Sparrow?",
+	"7": "A person known to doccotrs as a universal donor has which type of blood?",
+	"8": "A website that no longer exists will often prompt the phrase not found and what code number?",
+	"9": "A Year is equal to how many fortneights?",
+	"10": "According to folklore, what legendary creature creates no reflection in a mirror?",
+	"11": "Barack Obama's 1st name is derived from a semetic word meaning what?"
+	}
+	,
+	{
+		"1": {
+			"a": "Johnny Depp",
+			"b": "Leonardo Dicaprio",
+			"c": "Michael Cera",
+			"d": "Brad Pitt"
+		},
+		"2": {
+			"a": "Rio, Brazil",
+			"b": "Berlin, Germany",
+			"c": "Moscow, Russia",
+			"d": "Casablanca, Morocco"
+		},
+		"3": {
+			"a": "The king of Pop",
+			"b": "The King of Rock",
+			"c": "The king of jazz",
+			"d": "The king of rap"
+		},
+		"4": {
+			"a": "Muhammad Ali",
+			"b": "Mike Tyson",
+			"c": "Earnie Shavers",
+			"d": "George Foreman"
+		},
+		"5": {
+			"a": "Chicken",
+			"b": "Owl",
+			"c": "Crow",
+			"d": "Sparrow"
+		},
+		"6": {
+			"a": "Johnny Depp",
+			"b": "Leonardo Dicaprio",
+			"c": "Michael Cera",
+			"d": "Brad Pitt"
+		},
+		"7": {
+			"a": "A",
+			"b": "B",
+			"c": "AB",
+			"d": "O"
+		},
+		"8": {
+			"a": "400",
+			"b": "200",
+			"c": "600",
+			"d": "220"
+		},
+		"9": {
+			"a": "22",
+			"b": "43",
+			"c": "26",
+			"d": "52"
+		},
+		"10": {
+			"a": "Mermaid",
+			"b": "Hulk",
+			"c": "Vampire",
+			"d": "Wolverine"
+		},
+		"11": {
+			"a": "Careful",
+			"b": "Amused",
+			"c": "Impressed",
+			"d": "Blessed"
+		}
+	},
+	{
+		"1": "Leonardo Dicaprio",
+		"2": "Rio, Brazil",
+		"3": "The king of Pop",
+		"4": "Muhammad Ali",
+		"5": "Crow",
+		"6": "Johnny Depp",
+		"7": "O",
+		"8": "400",
+		"9": "26",
+		"10": "Vampire",
+		"11": "Blessed"
+
+	}
+]
