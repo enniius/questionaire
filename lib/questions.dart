@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue/flutter_blue.dart';
 import 'package:questionaire/main.dart';
+import 'package:flutter_bluetooth_basic/flutter_bluetooth_basic.dart';
 import 'package:questionaire/results.dart';
 
 class getjson extends StatelessWidget {
@@ -47,9 +47,6 @@ class getjson extends StatelessWidget {
 class questions extends StatefulWidget {
   var data;
   var scanSubscription;
-  BluetoothDevice device;
-  BluetoothState state;
-  BluetoothDeviceState deviceState;
 
   final int waitlength = 400;
   final int buzzlength = 400;
@@ -72,18 +69,87 @@ class questions extends StatefulWidget {
       "713D0003-503E-4C75-BA94-3148F18D941E"; //schaltet Motoren auf gegebene Stärken
 
   questions({Key key, @required this.data}) : super(key: key);
-  final FlutterBlue flutterBlue = FlutterBlue.instance;
-  final List<BluetoothDevice> devicesList = new List<BluetoothDevice>();
 
   @override
   _questionsState createState() => _questionsState(data);
 }
 
 class _questionsState extends State<questions> {
-
   var data;
-
   _questionsState(this.data);
+  bool _connected = false;
+  String tips = "no device connect";
+
+  BluetoothManager bluetoothManager = BluetoothManager.instance;
+  BluetoothDevice device;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => initBluetooth());
+    getDevice();
+  }
+
+// Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initBluetooth() async {
+    bluetoothManager.startScan(timeout: Duration(seconds: 4));
+
+    bool isConnected = await bluetoothManager.isConnected;
+
+    bluetoothManager.state.listen((state) {
+      print('cur device status: $state');
+
+      switch (state) {
+        case BluetoothManager.CONNECTED:
+          setState(() {
+            _connected = true;
+            tips = 'connect success';
+          });
+          break;
+        case BluetoothManager.DISCONNECTED:
+          setState(() {
+            _connected = false;
+            tips = 'disconnect success';
+          });
+          break;
+        default:
+          break;
+      }
+    });
+
+    if (!mounted) return;
+
+    if (isConnected) {
+      setState(() {
+        _connected = true;
+      });
+    }
+  }
+
+  void getDevice() {
+    print(bluetoothManager.scanResults.contains(widget.device_name));
+    print(tips);
+  }
+
+  void _onConnect() async {
+    if (device != null && device.address != null) {
+      await bluetoothManager.connect(device);
+    } else {
+      setState(() {
+        tips = 'please select device';
+      });
+      print('please select device');
+    }
+  }
+
+  void _onDisconnect() async {
+    await bluetoothManager.disconnect();
+  }
+
+  void _sendData() async {
+    await bluetoothManager.writeData([0x0000FF0000]);
+  }
 
   Color colortoshow;
   int points = 0;
@@ -120,8 +186,6 @@ class _questionsState extends State<questions> {
       points++;
     } else {
       colortoshow = Colors.red;
-      //doSmth();
-      scanForDevices();
       //TODO: vibrate if wrong
     }
     setState(() {
