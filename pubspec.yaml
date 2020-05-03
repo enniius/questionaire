@@ -23,9 +23,11 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  vibration: ^1.2.4
+  #vibration: ^1.2.4
   #flutter_blue: ^0.7.2
-  flutter_bluetooth_basic: ^0.1.5
+  #flutter_bluetooth_basic: ^0.1.5
+  flutter_ble_lib: ^2.2.3
+
 
 
 dev_dependencies:

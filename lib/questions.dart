@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:questionaire/main.dart';
-import 'package:flutter_bluetooth_basic/flutter_bluetooth_basic.dart';
+import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:questionaire/results.dart';
 
 class getjson extends StatelessWidget {
@@ -51,11 +52,14 @@ class questions extends StatefulWidget {
   final int waitlength = 400;
   final int buzzlength = 400;
 
-  final String FINGER_0 = "qgAAAA==";
-  final String FINGER_1 = "AKoAAA==";
-  final String FINGER_2 = "AACqAA==";
-  final String FINGER_3 = "AAAAqg==";
-  final String ALL_STOP = "AAAAAA==";
+  static final String FINGER_0 = "qgAAAA==";
+  static final String FINGER_1 = "AKoAAA==";
+  static final String FINGER_2 = "AACqAA==";
+  static final String FINGER_3 = "AAAAqg==";
+  static final String ALL_STOP = "AAAAAA==";
+  var list = [FINGER_0,FINGER_1];
+
+
 
   final String device_id = "C9:F7:C0:1A:FA:15";
   final String device_name = "TECO Wearable 007";
@@ -77,79 +81,57 @@ class questions extends StatefulWidget {
 class _questionsState extends State<questions> {
   var data;
   _questionsState(this.data);
-  bool _connected = false;
-  String tips = "no device connect";
-
-  BluetoothManager bluetoothManager = BluetoothManager.instance;
-  BluetoothDevice device;
 
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => initBluetooth());
-    getDevice();
-  }
+    BleManager bleManager = BleManager();
+    await bleManager.createClient(); //ready to go!
 
-// Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initBluetooth() async {
-    bluetoothManager.startScan(timeout: Duration(seconds: 4));
+    bleManager.startPeripheralScan(
+      uuids: [
+        widget.service,
+      ],
+    ).listen((scanResult) async {
+      //Scan one peripheral and stop scanning
+      print("Scanned Peripheral ${scanResult.peripheral.name}, RSSI ${scanResult.rssi}");
 
-    bool isConnected = await bluetoothManager.isConnected;
+      Peripheral peripheral = scanResult.peripheral;
+      peripheral.observeConnectionState(emitCurrentValue: true, completeOnDisconnect: true)
+          .listen((connectionState) {
+        print("Peripheral ${scanResult.peripheral.identifier} connection state is $connectionState");
+      });
+      await peripheral.connect();
+      bool connected = await peripheral.isConnected();
+      //await peripheral.disconnectOrCancelConnection();
+      print("imhere");
+      //assuming peripheral is connected
+      await peripheral.discoverAllServicesAndCharacteristics();
+      List<Service> services = await peripheral.services(); //getting all services
+      List<Characteristic> characteristics1 = await peripheral.characteristics(widget.char1);
+      List<Characteristic> characteristics2 = await services.firstWhere(
+              (service) => service.uuid == widget.service).characteristics();
 
-    bluetoothManager.state.listen((state) {
-      print('cur device status: $state');
+      //characteristics1 and characteristics2 have the same contents
 
-      switch (state) {
-        case BluetoothManager.CONNECTED:
-          setState(() {
-            _connected = true;
-            tips = 'connect success';
-          });
-          break;
-        case BluetoothManager.DISCONNECTED:
-          setState(() {
-            _connected = false;
-            tips = 'disconnect success';
-          });
-          break;
-        default:
-          break;
-      }
+      peripheral.writeCharacteristic(
+          widget.service,
+          widget.char3,
+          Uint8List.fromList([0xFF]),
+          false);
+
+      bleManager.stopPeripheralScan();
     });
 
-    if (!mounted) return;
 
-    if (isConnected) {
-      setState(() {
-        _connected = true;
-      });
-    }
+
+
+
+
+    bleManager.destroyClient(); //remember to release native resources when you're done!
   }
 
-  void getDevice() {
-    print(bluetoothManager.scanResults.contains(widget.device_name));
-    print(tips);
-  }
-
-  void _onConnect() async {
-    if (device != null && device.address != null) {
-      await bluetoothManager.connect(device);
-    } else {
-      setState(() {
-        tips = 'please select device';
-      });
-      print('please select device');
-    }
-  }
-
-  void _onDisconnect() async {
-    await bluetoothManager.disconnect();
-  }
-
-  void _sendData() async {
-    await bluetoothManager.writeData([0x0000FF0000]);
-  }
 
   Color colortoshow;
   int points = 0;
