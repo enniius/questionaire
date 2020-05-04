@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:questionaire/main.dart';
 import 'package:questionaire/results.dart';
+import 'package:questionaire/splash.dart';
 
 class getjson extends StatelessWidget {
   String questionstoget;
@@ -47,29 +48,10 @@ class getjson extends StatelessWidget {
 class questions extends StatefulWidget {
   var data;
   var scanSubscription;
-  BluetoothDevice device;
-  BluetoothState state;
-  BluetoothDeviceState deviceState;
 
   final int waitlength = 400;
   final int buzzlength = 400;
 
-  final String FINGER_0 = "qgAAAA==";
-  final String FINGER_1 = "AKoAAA==";
-  final String FINGER_2 = "AACqAA==";
-  final String FINGER_3 = "AAAAqg==";
-  final String ALL_STOP = "AAAAAA==";
-
-  final String device_id = "C9:F7:C0:1A:FA:15";
-  final String device_name = "TECO Wearable 007";
-
-  final String service = "713D0000-503E-4C75-BA94-3148F18D941E";
-  final String char1 =
-      "713D0001-503E-4C75-BA94-3148F18D941E"; //Anzahl der angeschlossenen Motoren (z.B. 4 oder 5)
-  final String char2 =
-      "713D0002-503E-4C75-BA94-3148F18D941E"; //Maximale Update-Frequenz für Motoren, z.B. 12 (“Updates pro Sekunde”)
-  final String char3 =
-      "713D0003-503E-4C75-BA94-3148F18D941E"; //schaltet Motoren auf gegebene Stärken
 
   questions({Key key, @required this.data}) : super(key: key);
   final FlutterBlue flutterBlue = FlutterBlue.instance;
@@ -81,6 +63,7 @@ class questions extends StatefulWidget {
 
 class _questionsState extends State<questions> {
 
+  var blc = splashscreen.bluetoothCharacteristic;
   var data;
 
   _questionsState(this.data);
@@ -120,9 +103,7 @@ class _questionsState extends State<questions> {
       points++;
     } else {
       colortoshow = Colors.red;
-      //doSmth();
-      scanForDevices();
-      //TODO: vibrate if wrong
+      splashscreen.buzz();
     }
     setState(() {
       buttoncolor[answer] = colortoshow;
